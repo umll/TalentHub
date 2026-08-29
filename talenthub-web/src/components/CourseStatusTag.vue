@@ -7,19 +7,21 @@ const props = defineProps<{ status: number }>()
 const meta = computed(() => {
   switch (props.status) {
     case COURSE_STATUS.NOT_STARTED:
-      return { color: 'gray', text: '未开始' }
+      return { cls: 'gray', text: '未开始', dot: false }
     case COURSE_STATUS.OPEN:
-      return { color: 'green', text: '报名中' }
+      return { cls: 'success', text: '报名中', dot: true }
     case COURSE_STATUS.ENDED:
-      return { color: 'red', text: '已结束' }
+      return { cls: 'danger', text: '已结束', dot: false }
     case COURSE_STATUS.CANCELED:
-      return { color: 'orange', text: '已取消' }
+      return { cls: 'warning', text: '已取消', dot: false }
     default:
-      return { color: 'gray', text: '未知' }
+      return { cls: 'gray', text: '未知', dot: false }
   }
 })
 </script>
 
 <template>
-  <a-tag :color="meta.color">{{ meta.text }}</a-tag>
+  <span class="status-pill" :class="meta.cls">
+    <span v-if="meta.dot" class="pill-dot" />{{ meta.text }}
+  </span>
 </template>

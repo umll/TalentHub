@@ -1,14 +1,12 @@
 <script setup lang="ts">
-import { onMounted, onUnmounted, ref } from 'vue'
+import { computed, onMounted, onUnmounted, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { Message } from '@arco-design/web-vue'
 import { listCourses } from '@/api/course'
 import { cancelEnroll, enroll } from '@/api/enrollment'
 import { COURSE_STATUS, type Course } from '@/types/course'
-import { formatDateTime } from '@/utils/format'
-import CourseStatusTag from '@/components/CourseStatusTag.vue'
-import StockBadge from '@/components/StockBadge.vue'
-import EnrollCountdown from '@/components/EnrollCountdown.vue'
+import StatCard from '@/components/StatCard.vue'
+import CourseCard from './components/CourseCard.vue'
 
 const REFRESH_INTERVAL_MS = 5000
 
@@ -16,7 +14,24 @@ const router = useRouter()
 const courses = ref<Course[]>([])
 const loading = ref(false)
 const actingCourseId = ref<number | null>(null)
+const filter = ref<'all' | 'open' | 'notStarted'>('all')
+const keyword = ref('')
 let refreshTimer: number | undefined
+
+const openCourses = computed(() => courses.value.filter((c) => c.status === COURSE_STATUS.OPEN))
+const notStartedCount = computed(
+  () => courses.value.filter((c) => c.status === COURSE_STATUS.NOT_STARTED).length
+)
+const totalStock = computed(() => openCourses.value.reduce((sum, c) => sum + c.stock, 0))
+
+const filtered = computed(() =>
+  courses.value.filter((c) => {
+    if (filter.value === 'open' && c.status !== COURSE_STATUS.OPEN) return false
+    if (filter.value === 'notStarted' && c.status !== COURSE_STATUS.NOT_STARTED) return false
+    const kw = keyword.value.trim()
+    return !kw || c.title.includes(kw)
+  })
+)
 
 async function reload(showLoading = false) {
   if (showLoading) loading.value = true
@@ -71,64 +86,106 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <a-card title="培训课程">
-    <template #extra>
-      <a-button size="small" @click="reload(true)">刷新</a-button>
-    </template>
-    <a-table :data="courses" :loading="loading" :pagination="false" row-key="id">
-      <template #columns>
-        <a-table-column title="课程" data-index="title">
-          <template #cell="{ record }">
-            <a-link @click="router.push(`/courses/${record.id}`)">{{ record.title }}</a-link>
-          </template>
-        </a-table-column>
-        <a-table-column title="剩余名额" :width="120">
-          <template #cell="{ record }">
-            <StockBadge :stock="record.stock" :total="record.totalQuota" />
-          </template>
-        </a-table-column>
-        <a-table-column title="报名时间" :width="320">
-          <template #cell="{ record }">
-            {{ formatDateTime(record.enrollStart) }} ~ {{ formatDateTime(record.enrollEnd) }}
-          </template>
-        </a-table-column>
-        <a-table-column title="状态" :width="150">
-          <template #cell="{ record }">
-            <a-space>
-              <CourseStatusTag :status="record.status" />
-              <EnrollCountdown
-                v-if="record.status === COURSE_STATUS.NOT_STARTED"
-                :target="record.enrollStart"
-                @reached="reload()"
-              />
-            </a-space>
-          </template>
-        </a-table-column>
-        <a-table-column title="操作" :width="140">
-          <template #cell="{ record }">
-            <template v-if="record.status === COURSE_STATUS.OPEN">
-              <a-popconfirm
-                v-if="record.enrolled"
-                content="确定取消报名吗？名额将释放给其他人。"
-                @ok="onCancel(record)"
-              >
-                <a-button size="small" :loading="actingCourseId === record.id">取消报名</a-button>
-              </a-popconfirm>
-              <a-button
-                v-else
-                type="primary"
-                size="small"
-                :disabled="record.stock <= 0"
-                :loading="actingCourseId === record.id"
-                @click="onEnroll(record)"
-              >
-                {{ record.stock > 0 ? '抢课' : '已抢完' }}
-              </a-button>
-            </template>
-            <a-tag v-else-if="record.enrolled" color="green">已报名</a-tag>
-          </template>
-        </a-table-column>
-      </template>
-    </a-table>
-  </a-card>
+  <div class="course-list-page">
+    <!-- 数据概览 -->
+    <section class="stats-grid">
+      <StatCard label="报名中课程" :value="openCourses.length" accent="success">
+        <template #icon><icon-fire /></template>
+      </StatCard>
+      <StatCard label="未开始课程" :value="notStartedCount" accent="warning">
+        <template #icon><icon-clock-circle /></template>
+      </StatCard>
+      <StatCard label="剩余名额总计" :value="totalStock" accent="primary">
+        <template #icon><icon-user-group /></template>
+      </StatCard>
+    </section>
+
+    <!-- 筛选与搜索 -->
+    <section class="toolbar">
+      <a-radio-group v-model="filter" type="button">
+        <a-radio value="all">全部</a-radio>
+        <a-radio value="open">报名中</a-radio>
+        <a-radio value="notStarted">未开始</a-radio>
+      </a-radio-group>
+      <div class="toolbar-right">
+        <a-input v-model="keyword" placeholder="搜索课程名称" allow-clear class="search-input">
+          <template #prefix><icon-search /></template>
+        </a-input>
+        <span class="refresh-hint"><span class="refresh-dot" />每 5 秒静默刷新</span>
+      </div>
+    </section>
+
+    <!-- 课程卡片流 -->
+    <a-spin :loading="loading" class="grid-spin">
+      <section v-if="filtered.length > 0" class="course-grid">
+        <CourseCard
+          v-for="c in filtered"
+          :key="c.id"
+          :course="c"
+          :acting="actingCourseId === c.id"
+          @open="router.push(`/courses/${c.id}`)"
+          @enroll="onEnroll(c)"
+          @cancel="onCancel(c)"
+          @reached="reload()"
+        />
+      </section>
+      <div v-else-if="!loading" class="panel micro-shadow empty-panel">
+        <a-empty description="没有符合条件的课程" />
+      </div>
+    </a-spin>
+  </div>
 </template>
+
+<style scoped>
+.course-list-page {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.toolbar-right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.search-input {
+  width: 240px;
+}
+
+.grid-spin {
+  display: block;
+  width: 100%;
+}
+
+.course-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.empty-panel {
+  padding: 48px 0;
+}
+
+@media (max-width: 960px) {
+  .stats-grid,
+  .course-grid {
+    grid-template-columns: 1fr;
+  }
+}
+</style>

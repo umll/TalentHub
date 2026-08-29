@@ -1,4 +1,4 @@
-# TalentHub 培训课程报名演示系统
+# TalentHub 培训课程抢课演示系统
 
 内部 toB 类秒杀业务演示：Redis 限流 + Lua 原子预扣 + PostgreSQL 条件更新防超卖 + 对账补偿。
 

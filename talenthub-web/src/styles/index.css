@@ -1,0 +1,122 @@
+/* 全局视觉基调：对齐 ui-design/ 设计稿，全部基于 Arco CSS 变量实现，不覆盖 Arco 组件内部样式 */
+
+body {
+  background-color: var(--color-fill-2);
+  color: var(--color-text-2);
+}
+
+/* 白卡片与投影 */
+.panel {
+  background-color: var(--color-bg-2);
+  border-radius: 8px;
+}
+
+.micro-shadow {
+  box-shadow: 0 4px 10px rgba(29, 33, 41, 0.05);
+}
+
+.hover-lift {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.hover-lift:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 16px rgba(29, 33, 41, 0.08);
+}
+
+/* 状态胶囊：课程状态 / 报名状态 / 对账动作共用 */
+.status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 1px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  line-height: 18px;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.status-pill .pill-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.status-pill.success {
+  color: rgb(var(--green-6));
+  background: rgb(var(--green-1));
+  border: 1px solid rgb(var(--green-3));
+}
+
+.status-pill.gray {
+  color: var(--color-text-3);
+  background: var(--color-fill-2);
+  border: 1px solid var(--color-border-2);
+}
+
+.status-pill.danger {
+  color: rgb(var(--red-6));
+  background: rgb(var(--red-1));
+  border: 1px solid rgb(var(--red-3));
+}
+
+.status-pill.warning {
+  color: rgb(var(--orange-6));
+  background: rgb(var(--orange-1));
+  border: 1px solid rgb(var(--orange-3));
+}
+
+.status-pill.primary {
+  color: rgb(var(--arcoblue-6));
+  background: rgb(var(--arcoblue-1));
+  border: 1px solid rgb(var(--arcoblue-3));
+}
+
+/* 静默刷新指示（呼吸点） */
+.refresh-hint {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--color-text-3);
+  font-size: 12px;
+  white-space: nowrap;
+}
+
+.refresh-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgb(var(--green-6));
+  position: relative;
+}
+
+.refresh-dot::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: rgb(var(--green-6));
+  animation: refresh-ping 1.6s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+@keyframes refresh-ping {
+  0% { transform: scale(1); opacity: 0.6; }
+  100% { transform: scale(2.4); opacity: 0; }
+}
+
+/* 页面标题区 */
+.page-title {
+  font-size: 24px;
+  line-height: 32px;
+  font-weight: 600;
+  color: var(--color-text-1);
+  margin: 0;
+}
+
+.page-subtitle {
+  color: var(--color-text-3);
+  font-size: 13px;
+  margin: 4px 0 0;
+}
