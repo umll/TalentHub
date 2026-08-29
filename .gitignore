@@ -1,0 +1,15 @@
+# Java / Maven
+talenthub-server/target/
+*.class
+
+# Node / Vite
+talenthub-web/node_modules/
+talenthub-web/dist/
+
+# IDE
+.idea/
+.vscode/
+*.iml
+
+# OS
+.DS_Store

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.talenthub.mapper.EnrollmentMapper">
+
+    <!-- 报名 upsert（业务设计 §4.1）：ON CONFLICT 吸收"曾取消后重新报名"，
+         affected=0 仅剩"已持有 status=1 记录"一种含义 -->
+    <insert id="upsertEnrollment">
+        INSERT INTO enrollment (user_id, course_id, status)
+        VALUES (#{userId}, #{courseId}, 1)
+        ON CONFLICT (user_id, course_id)
+        DO UPDATE SET status = 1, enrolled_at = now(), canceled_at = NULL
+        WHERE enrollment.status = 2
+    </insert>
+
+    <update id="cancelEnrollment">
+        UPDATE enrollment
+        SET status = 2, canceled_at = now()
+        WHERE user_id = #{userId} AND course_id = #{courseId} AND status = 1
+    </update>
+
+    <select id="existsActive" resultType="boolean">
+        SELECT EXISTS(
+            SELECT 1 FROM enrollment
+            WHERE user_id = #{userId} AND course_id = #{courseId} AND status = 1
+        )
+    </select>
+
+    <select id="selectMyEnrollments" resultType="EnrollmentVO">
+        SELECT e.id, e.course_id, c.title AS course_title, e.status, e.enrolled_at, e.canceled_at,
+               c.status AS course_status, c.enroll_end
+        FROM enrollment e
+        JOIN course c ON c.id = e.course_id
+        WHERE e.user_id = #{userId}
+        ORDER BY e.enrolled_at DESC
+    </select>
+
+    <select id="countActive" resultType="int">
+        SELECT COUNT(*) FROM enrollment WHERE course_id = #{courseId} AND status = 1
+    </select>
+
+    <select id="selectActiveUserIds" resultType="long">
+        SELECT user_id FROM enrollment WHERE course_id = #{courseId} AND status = 1
+    </select>
+
+</mapper>

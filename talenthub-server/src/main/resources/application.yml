@@ -1,0 +1,45 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: talenthub-server
+  datasource:
+    # 通过环境变量注入云服务器连接信息，本地不落库密码
+    url: jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5432}/${DB_NAME:talenthub}
+    username: ${DB_USERNAME:talenthub}
+    password: ${DB_PASSWORD:talenthub}
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      # 报名接口独占热点行锁，连接池上限收紧防排队拖垮（工程设计 §3.3 / 业务设计 §2.2）
+      maximum-pool-size: 30
+  sql:
+    init:
+      mode: always
+      schema-locations: classpath:db/schema.sql
+      data-locations: classpath:db/data.sql
+  data:
+    redis:
+      host: ${REDIS_HOST:localhost}
+      port: ${REDIS_PORT:6379}
+      password: ${REDIS_PASSWORD:}
+
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.talenthub.model
+  configuration:
+    map-underscore-to-camel-case: true
+
+talenthub:
+  rate-limit:
+    # 接口级限流阈值 ≈ 库存 × 1.5 量级（业务设计 §7），演示统一取 100 QPS
+    course-qps: 100
+    # 用户级限流：同一用户同一课程 N 秒内最多 1 次
+    user-interval-seconds: 2
+  reconcile:
+    # Redis 虚低方向需连续 N 轮存在才修正（业务设计 §5）
+    low-rounds-threshold: 2
+
+logging:
+  level:
+    com.talenthub: debug

@@ -1,0 +1,21 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: talenthub-postgres
+    environment:
+      POSTGRES_DB: talenthub
+      POSTGRES_USER: talenthub
+      POSTGRES_PASSWORD: talenthub
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  redis:
+    image: redis:7-alpine
+    container_name: talenthub-redis
+    ports:
+      - "6379:6379"
+
+volumes:
+  pgdata:

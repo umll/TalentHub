@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.talenthub.mapper.CourseMapper">
+
+    <sql id="entityColumns">
+        id, title, total_quota, stock, enroll_start, enroll_end, status, version, created_at, updated_at
+    </sql>
+
+    <sql id="voSelect">
+        SELECT c.id, c.title, c.total_quota, c.stock, c.enroll_start, c.enroll_end, c.status,
+               (e.id IS NOT NULL) AS enrolled
+        FROM course c
+        LEFT JOIN enrollment e ON e.course_id = c.id AND e.user_id = #{userId} AND e.status = 1
+    </sql>
+
+    <select id="selectAllWithEnrolled" resultType="CourseVO">
+        <include refid="voSelect"/>
+        ORDER BY c.status ASC, c.enroll_start ASC, c.id ASC
+    </select>
+
+    <select id="selectVoById" resultType="CourseVO">
+        <include refid="voSelect"/>
+        WHERE c.id = #{id}
+    </select>
+
+    <select id="selectById" resultType="Course">
+        SELECT <include refid="entityColumns"/> FROM course WHERE id = #{id}
+    </select>
+
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+        INSERT INTO course (title, total_quota, stock, enroll_start, enroll_end, status)
+        VALUES (#{title}, #{totalQuota}, #{stock}, #{enrollStart}, #{enrollEnd}, #{status})
+    </insert>
+
+    <update id="updateEditable">
+        UPDATE course
+        SET title        = #{dto.title},
+            total_quota  = #{dto.totalQuota},
+            stock        = #{dto.totalQuota},
+            enroll_start = #{dto.enrollStart},
+            enroll_end   = #{dto.enrollEnd},
+            updated_at   = now()
+        WHERE id = #{id} AND status = 0
+    </update>
+
+    <!-- 防超卖最终防线：单条条件 UPDATE，禁止改为 SELECT FOR UPDATE（业务设计 §2.2） -->
+    <update id="deductStock">
+        UPDATE course
+        SET stock = stock - 1, updated_at = now()
+        WHERE id = #{id} AND stock &gt; 0 AND status = 1
+    </update>
+
+    <update id="restoreStock">
+        UPDATE course
+        SET stock = stock + 1, updated_at = now()
+        WHERE id = #{id} AND stock &lt; total_quota
+    </update>
+
+    <update id="openDueCourses">
+        UPDATE course SET status = 1, updated_at = now()
+        WHERE status = 0 AND enroll_start &lt;= now()
+    </update>
+
+    <update id="closeDueCourses">
+        UPDATE course SET status = 2, updated_at = now()
+        WHERE status = 1 AND enroll_end &lt;= now()
+    </update>
+
+    <select id="selectPreheatCandidates" resultType="Course">
+        SELECT <include refid="entityColumns"/> FROM course
+        WHERE status = 0 AND enroll_start &lt;= now() + interval '5 minutes'
+    </select>
+
+    <select id="selectByStatus" resultType="Course">
+        SELECT <include refid="entityColumns"/> FROM course WHERE status = #{status}
+    </select>
+
+</mapper>
