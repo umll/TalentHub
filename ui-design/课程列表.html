@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN"><head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>课程列表 - TalentHub</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&amp;family=Libre+Franklin:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-error-container": "#93000a",
+                        "on-surface": "#131c26",
+                        "on-tertiary-fixed": "#311300",
+                        "secondary-container": "#6bfd6a",
+                        "primary-container": "#165dff",
+                        "surface-variant": "#d9e3f1",
+                        "on-tertiary-container": "#ffece2",
+                        "surface-tint": "#004fe5",
+                        "status-warning": "#FF7D00",
+                        "on-secondary-fixed-variant": "#00530e",
+                        "text-heading": "#1D2129",
+                        "on-primary-fixed": "#00164f",
+                        "error-container": "#ffdad6",
+                        "bg-subtle": "#F2F3F5",
+                        "on-background": "#131c26",
+                        "secondary": "#006e16",
+                        "secondary-fixed": "#72ff70",
+                        "on-primary-fixed-variant": "#003bb0",
+                        "tertiary-fixed": "#ffdbc8",
+                        "background": "#f7f9ff",
+                        "on-secondary-container": "#007317",
+                        "on-secondary-fixed": "#002203",
+                        "outline": "#737688",
+                        "secondary-fixed-dim": "#4ee253",
+                        "surface-container-low": "#edf4ff",
+                        "text-muted": "#86909C",
+                        "status-success": "#00B42A",
+                        "primary": "#0047cf",
+                        "error": "#ba1a1a",
+                        "primary-fixed-dim": "#b6c4ff",
+                        "on-tertiary": "#ffffff",
+                        "on-tertiary-fixed-variant": "#733500",
+                        "surface": "#f7f9ff",
+                        "outline-variant": "#c3c5d9",
+                        "on-surface-variant": "#434656",
+                        "surface-container": "#e5effc",
+                        "primary-fixed": "#dce1ff",
+                        "inverse-surface": "#28313b",
+                        "inverse-on-surface": "#e8f2ff",
+                        "on-secondary": "#ffffff",
+                        "tertiary-fixed-dim": "#ffb689",
+                        "status-error": "#F53F3F",
+                        "surface-dim": "#d1dbe8",
+                        "on-error": "#ffffff",
+                        "tertiary-container": "#ae5300",
+                        "tertiary": "#894000",
+                        "surface-container-highest": "#d9e3f1",
+                        "surface-bright": "#f7f9ff",
+                        "surface-container-lowest": "#ffffff",
+                        "inverse-primary": "#b6c4ff",
+                        "status-inactive": "#86909C",
+                        "on-primary": "#ffffff",
+                        "text-body": "#4E5969",
+                        "on-primary-container": "#eeefff",
+                        "border-medium": "#C9CDD1",
+                        "border-light": "#F2F3F5",
+                        "surface-container-high": "#dfe9f6"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "gutter": "24px",
+                        "container-max": "1200px",
+                        "base": "8px",
+                        "section-gap": "32px",
+                        "margin-mobile": "16px",
+                        "card-padding": "20px"
+                    },
+                    "fontFamily": {
+                        "label-sm": ["IBM Plex Sans"],
+                        "headline-sm": ["Libre Franklin"],
+                        "numeric-countdown": ["IBM Plex Sans"],
+                        "headline-md": ["Libre Franklin"],
+                        "body-lg": ["Libre Franklin"],
+                        "body-md": ["Libre Franklin"],
+                        "display-lg": ["Libre Franklin"],
+                        "label-md": ["IBM Plex Sans"]
+                    },
+                    "fontSize": {
+                        "label-sm": ["12px", { "lineHeight": "18px", "fontWeight": "500" }],
+                        "headline-sm": ["20px", { "lineHeight": "28px", "fontWeight": "600" }],
+                        "numeric-countdown": ["18px", { "lineHeight": "24px", "letterSpacing": "0.02em", "fontWeight": "600" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "body-md": ["14px", { "lineHeight": "22px", "fontWeight": "400" }],
+                        "display-lg": ["36px", { "lineHeight": "44px", "fontWeight": "700" }],
+                        "label-md": ["14px", { "lineHeight": "20px", "fontWeight": "500" }]
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { background-color: #F2F3F5; }
+        .micro-shadow { box-shadow: 0 4px 10px rgba(29, 33, 41, 0.05); }
+        .hover-lift:hover { transform: translateY(-2px); box-shadow: 0 8px 16px rgba(29, 33, 41, 0.08); }
+
+        @keyframes slideDown {
+            from { transform: translate(-50%, -100%); opacity: 0; }
+            to { transform: translate(-50%, 20px); opacity: 1; }
+        }
+        @keyframes fadeOut {
+            from { opacity: 1; }
+            to { opacity: 0; }
+        }
+        .message-toast {
+            animation: slideDown 0.3s ease-out forwards;
+        }
+        .message-toast.hiding {
+            animation: fadeOut 0.3s ease-in forwards;
+        }
+
+        .loading-spinner {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            border: 2px solid rgba(255,255,255,0.3);
+            border-radius: 50%;
+            border-top-color: #fff;
+            animation: spin 1s ease-in-out infinite;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+    </style>
+</head>
+<body class="font-body-md text-text-body antialiased min-h-screen">
+<!-- TopNavBar -->
+<nav class="fixed top-0 w-full z-50 flex items-center justify-between px-gutter h-16 max-w-container-max mx-auto bg-surface-container-lowest border-b border-border-light shadow-sm docked full-width top-0">
+    <div class="flex items-center gap-8">
+        <div class="font-headline-sm text-headline-sm font-bold text-primary">TalentHub 抢课演示</div>
+        <div class="hidden md:flex gap-6">
+            <a class="text-primary font-bold border-b-2 border-primary pb-1 font-label-md text-label-md" href="#">课程列表</a>
+            <a class="text-text-body hover:text-primary transition-colors duration-200 font-label-md text-label-md" href="#">我的报名</a>
+            <a class="text-text-body hover:text-primary transition-colors duration-200 font-label-md text-label-md" href="#">管理端</a>
+        </div>
+    </div>
+    <div class="flex items-center gap-4">
+        <button class="text-text-body hover:text-primary transition-colors duration-200 font-label-md text-label-md">用户切换</button>
+        <div class="w-8 h-8 rounded-full bg-surface-container-high overflow-hidden">
+            <img alt="User Avatar" class="w-full h-full object-cover" data-alt="A small, professional avatar portrait of a modern office worker in a brightly lit studio setting. Light mode corporate aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCpRN6ThUNSIOU1jX2OapLMD8zBZmyUt6Vbc8fnhfUZ1ACvgkpUrxWIQuKDeOX-YUw_8noL0qycZCM1OBSPMzZJ0WzFFuvhh4emCwivRKivlaBJaAp6srZFwKs5nMmLM2RV0FFPxlJUba_lhD8L1DV1JnmPEI0AlE5fZyHk6ELhO3eqn5cnhmp004CtCwdUg1YM1SQUeyCHCEHlIWFiDHL4Do2EP8rdlF7_6MI2354oFLDxq4o-RWUf7Q"/>
+        </div>
+    </div>
+</nav>
+<!-- Global Message (Arco Style) -->
+<div class="fixed top-0 left-1/2 z-[100] flex items-center gap-2 px-4 py-2 bg-surface-container-lowest border border-status-success rounded micro-shadow message-toast hidden" id="global-message">
+    <span class="material-symbols-outlined text-status-success text-[18px]">check_circle</span>
+    <span class="text-text-heading font-body-md">报名成功</span>
+</div>
+<!-- Main Content -->
+<main class="pt-24 pb-16 px-gutter max-w-container-max mx-auto">
+    <!-- Stats Overview -->
+    <section class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-section-gap">
+        <div class="bg-surface-container-lowest rounded-lg p-card-padding micro-shadow">
+            <div class="text-text-muted font-label-md mb-2">今日开放课程</div>
+            <div class="font-display-lg text-text-heading">12</div>
+        </div>
+        <div class="bg-surface-container-lowest rounded-lg p-card-padding micro-shadow">
+            <div class="text-text-muted font-label-md mb-2">当前在线人数</div>
+            <div class="font-display-lg text-text-heading flex items-center gap-2">
+                4,521
+                <span class="flex h-3 w-3 relative">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-status-success opacity-75"></span>
+<span class="relative inline-flex rounded-full h-3 w-3 bg-status-success"></span>
+</span>
+            </div>
+        </div>
+        <div class="bg-surface-container-lowest rounded-lg p-card-padding micro-shadow">
+            <div class="text-text-muted font-label-md mb-2">剩余名额总计</div>
+            <div class="font-display-lg text-primary">89</div>
+        </div>
+    </section>
+    <!-- Filters & Actions -->
+    <section class="flex flex-col md:flex-row justify-between items-center gap-4 mb-6">
+        <div class="flex items-center gap-2 w-full md:w-auto">
+            <button class="px-4 py-2 bg-primary-container text-on-primary-container rounded font-label-md text-label-md font-bold">全部</button>
+            <button class="px-4 py-2 text-text-body hover:bg-bg-subtle rounded font-label-md text-label-md transition-colors">报名中</button>
+            <button class="px-4 py-2 text-text-body hover:bg-bg-subtle rounded font-label-md text-label-md transition-colors">未开始</button>
+        </div>
+        <div class="flex items-center gap-4 w-full md:w-auto">
+            <div class="relative w-full md:w-64">
+                <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-text-muted text-[18px]">search</span>
+                <input class="w-full pl-9 pr-4 py-2 bg-surface-container-lowest border border-border-medium rounded-DEFAULT focus:outline-none focus:border-primary text-body-md transition-colors" placeholder="搜索课程名称" type="text"/>
+            </div>
+            <div class="text-text-muted font-label-sm flex items-center gap-1">
+                <span class="w-2 h-2 rounded-full bg-status-success"></span>
+                数据已静默刷新
+            </div>
+        </div>
+    </section>
+    <!-- Course Grid -->
+    <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- Card A: Available -->
+        <div class="bg-surface-container-lowest rounded-lg overflow-hidden micro-shadow hover-lift transition-all flex flex-col relative border border-transparent">
+            <div class="absolute top-4 right-4 bg-surface-container-low text-status-success px-2 py-1 rounded font-label-sm text-label-sm border border-status-success/30 flex items-center gap-1">
+                <span class="w-1.5 h-1.5 rounded-full bg-status-success"></span> 报名中
+            </div>
+            <div class="p-card-padding flex-1 flex flex-col">
+                <h3 class="font-headline-sm text-headline-sm text-text-heading mb-4 pr-16">高效沟通技巧</h3>
+                <div class="space-y-2 mb-6 flex-1">
+                    <div class="flex items-center gap-2 text-text-body font-label-md text-label-md">
+                        <span class="material-symbols-outlined text-[16px] text-text-muted">calendar_today</span>
+                        09-01 至 09-05
+                    </div>
+                    <div class="flex items-center gap-2 text-text-body font-label-md text-label-md">
+                        <span class="material-symbols-outlined text-[16px] text-text-muted">location_on</span>
+                        线上直播
+                    </div>
+                </div>
+                <div class="mt-auto">
+                    <div class="flex justify-between text-label-sm text-text-muted mb-1 font-label-sm">
+                        <span>已报名 12/50</span>
+                        <span>剩余充足</span>
+                    </div>
+                    <div class="w-full bg-bg-subtle h-1.5 rounded-full mb-4 overflow-hidden">
+                        <div class="bg-primary h-full rounded-full" style="width: 24%"></div>
+                    </div>
+                    <button class="w-full bg-primary text-on-primary py-2 rounded-DEFAULT font-label-md text-label-md hover:bg-surface-tint transition-colors flex justify-center items-center h-10" onclick="enroll(this)">
+                        立即抢课
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Card B: Almost Full -->
+        <div class="bg-surface-container-lowest rounded-lg overflow-hidden micro-shadow hover-lift transition-all flex flex-col relative border border-transparent">
+            <div class="absolute top-4 right-4 bg-surface-container-low text-status-success px-2 py-1 rounded font-label-sm text-label-sm border border-status-success/30 flex items-center gap-1">
+                <span class="w-1.5 h-1.5 rounded-full bg-status-success"></span> 报名中
+            </div>
+            <div class="p-card-padding flex-1 flex flex-col">
+                <h3 class="font-headline-sm text-headline-sm text-text-heading mb-4 pr-16">AI 原生应用开发</h3>
+                <div class="space-y-2 mb-6 flex-1">
+                    <div class="flex items-center gap-2 text-text-body font-label-md text-label-md">
+                        <span class="material-symbols-outlined text-[16px] text-text-muted">calendar_today</span>
+                        08-25 至 08-30
+                    </div>
+                    <div class="flex items-center gap-2 text-text-body font-label-md text-label-md">
+                        <span class="material-symbols-outlined text-[16px] text-text-muted">location_on</span>
+                        北京研发中心
+                    </div>
+                </div>
+                <div class="mt-auto">
+                    <div class="flex justify-between text-label-sm mb-1 font-label-sm">
+                        <span class="text-text-muted">已报名 48/50</span>
+                        <span class="text-status-warning">即将售罄</span>
+                    </div>
+                    <div class="w-full bg-bg-subtle h-1.5 rounded-full mb-4 overflow-hidden">
+                        <div class="bg-status-warning h-full rounded-full" style="width: 96%"></div>
+                    </div>
+                    <button class="w-full bg-primary text-on-primary py-2 rounded-DEFAULT font-label-md text-label-md hover:bg-surface-tint transition-colors flex justify-center items-center h-10" onclick="enroll(this)">
+                        立即抢课
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Card C: Not Started -->
+        <div class="bg-surface-container-lowest rounded-lg overflow-hidden micro-shadow hover-lift transition-all flex flex-col relative border border-transparent">
+            <div class="absolute top-4 right-4 bg-bg-subtle text-status-inactive px-2 py-1 rounded font-label-sm text-label-sm border border-border-medium flex items-center gap-1">
+                未开始
+            </div>
+            <div class="p-card-padding flex-1 flex flex-col">
+                <h3 class="font-headline-sm text-headline-sm text-text-heading mb-4 pr-16">领导力进阶</h3>
+                <div class="space-y-2 mb-4 flex-1">
+                    <div class="flex items-center gap-2 text-text-body font-label-md text-label-md">
+                        <span class="material-symbols-outlined text-[16px] text-text-muted">calendar_today</span>
+                        09-10 至 09-15
+                    </div>
+                    <div class="flex items-center gap-2 text-text-body font-label-md text-label-md">
+                        <span class="material-symbols-outlined text-[16px] text-text-muted">location_on</span>
+                        上海培训基地
+                    </div>
+                </div>
+                <div class="mt-auto">
+                    <div class="bg-surface-container-low rounded-DEFAULT p-3 mb-4 text-center border border-status-warning/20">
+                        <div class="text-label-sm text-text-muted mb-1 font-label-sm">距离开抢还有</div>
+                        <div class="font-numeric-countdown text-numeric-countdown text-status-warning">05:32:10</div>
+                    </div>
+                    <button class="w-full bg-surface-container-lowest border border-primary text-primary py-2 rounded-DEFAULT font-label-md text-label-md hover:bg-surface-container-low transition-colors flex justify-center items-center h-10 gap-2">
+                        <span class="material-symbols-outlined text-[18px]">notifications</span>
+                        提醒我
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Card D: Sold Out -->
+        <div class="bg-surface-container-lowest rounded-lg overflow-hidden micro-shadow flex flex-col relative border border-transparent opacity-80">
+            <div class="absolute top-4 right-4 bg-error-container text-status-error px-2 py-1 rounded font-label-sm text-label-sm flex items-center gap-1">
+                已结束
+            </div>
+            <div class="p-card-padding flex-1 flex flex-col">
+                <h3 class="font-headline-sm text-headline-sm text-text-heading mb-4 pr-16">数字化转型实战</h3>
+                <div class="space-y-2 mb-6 flex-1">
+                    <div class="flex items-center gap-2 text-text-body font-label-md text-label-md">
+                        <span class="material-symbols-outlined text-[16px] text-text-muted">calendar_today</span>
+                        08-01 至 08-05
+                    </div>
+                    <div class="flex items-center gap-2 text-text-body font-label-md text-label-md">
+                        <span class="material-symbols-outlined text-[16px] text-text-muted">location_on</span>
+                        深圳总部
+                    </div>
+                </div>
+                <div class="mt-auto">
+                    <div class="flex justify-between text-label-sm mb-1 font-label-sm">
+                        <span class="text-text-muted">已报名 20/20</span>
+                        <span class="text-status-error">名额已满</span>
+                    </div>
+                    <div class="w-full bg-bg-subtle h-1.5 rounded-full mb-4 overflow-hidden">
+                        <div class="bg-status-error h-full rounded-full" style="width: 100%"></div>
+                    </div>
+                    <button class="w-full bg-bg-subtle text-status-inactive py-2 rounded-DEFAULT font-label-md text-label-md cursor-not-allowed flex justify-center items-center h-10" disabled="">
+                        已抢完
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+<script>
+    function enroll(btn) {
+        if(btn.disabled) return;
+
+        // Loading state
+        const originalText = btn.innerHTML;
+        btn.innerHTML = '<span class="loading-spinner"></span>';
+        btn.disabled = true;
+
+        // Simulate network request
+        setTimeout(() => {
+            btn.innerHTML = '已报名';
+            btn.classList.remove('bg-primary', 'hover:bg-surface-tint');
+            btn.classList.add('bg-status-success', 'cursor-not-allowed');
+
+            // Show global message
+            const msg = document.getElementById('global-message');
+            msg.classList.remove('hidden');
+
+            setTimeout(() => {
+                msg.classList.add('hiding');
+                setTimeout(() => {
+                    msg.classList.add('hidden');
+                    msg.classList.remove('hiding');
+                }, 300);
+            }, 3000);
+        }, 800);
+    }
+</script>
+</body></html>

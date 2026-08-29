@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN"><head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>课程详情 - TalentHub</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com" rel="preconnect"/>
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&amp;family=Libre+Franklin:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-error-container": "#93000a",
+                        "on-surface": "#131c26",
+                        "on-tertiary-fixed": "#311300",
+                        "secondary-container": "#6bfd6a",
+                        "primary-container": "#165dff",
+                        "surface-variant": "#d9e3f1",
+                        "on-tertiary-container": "#ffece2",
+                        "surface-tint": "#004fe5",
+                        "status-warning": "#FF7D00",
+                        "on-secondary-fixed-variant": "#00530e",
+                        "text-heading": "#1D2129",
+                        "on-primary-fixed": "#00164f",
+                        "error-container": "#ffdad6",
+                        "bg-subtle": "#F2F3F5",
+                        "on-background": "#131c26",
+                        "secondary": "#006e16",
+                        "secondary-fixed": "#72ff70",
+                        "on-primary-fixed-variant": "#003bb0",
+                        "tertiary-fixed": "#ffdbc8",
+                        "background": "#f7f9ff",
+                        "on-secondary-container": "#007317",
+                        "on-secondary-fixed": "#002203",
+                        "outline": "#737688",
+                        "secondary-fixed-dim": "#4ee253",
+                        "surface-container-low": "#edf4ff",
+                        "text-muted": "#86909C",
+                        "status-success": "#00B42A",
+                        "primary": "#0047cf",
+                        "error": "#ba1a1a",
+                        "primary-fixed-dim": "#b6c4ff",
+                        "on-tertiary": "#ffffff",
+                        "on-tertiary-fixed-variant": "#733500",
+                        "surface": "#f7f9ff",
+                        "outline-variant": "#c3c5d9",
+                        "on-surface-variant": "#434656",
+                        "surface-container": "#e5effc",
+                        "primary-fixed": "#dce1ff",
+                        "inverse-surface": "#28313b",
+                        "inverse-on-surface": "#e8f2ff",
+                        "on-secondary": "#ffffff",
+                        "tertiary-fixed-dim": "#ffb689",
+                        "status-error": "#F53F3F",
+                        "surface-dim": "#d1dbe8",
+                        "on-error": "#ffffff",
+                        "tertiary-container": "#ae5300",
+                        "tertiary": "#894000",
+                        "surface-container-highest": "#d9e3f1",
+                        "surface-bright": "#f7f9ff",
+                        "surface-container-lowest": "#ffffff",
+                        "inverse-primary": "#b6c4ff",
+                        "status-inactive": "#86909C",
+                        "on-primary": "#ffffff",
+                        "text-body": "#4E5969",
+                        "on-primary-container": "#eeefff",
+                        "border-medium": "#C9CDD1",
+                        "border-light": "#F2F3F5",
+                        "surface-container-high": "#dfe9f6"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "gutter": "24px",
+                        "container-max": "1200px",
+                        "base": "8px",
+                        "section-gap": "32px",
+                        "margin-mobile": "16px",
+                        "card-padding": "20px"
+                    },
+                    "fontFamily": {
+                        "label-sm": ["IBM Plex Sans"],
+                        "headline-sm": ["Libre Franklin"],
+                        "numeric-countdown": ["IBM Plex Sans"],
+                        "headline-md": ["Libre Franklin"],
+                        "body-lg": ["Libre Franklin"],
+                        "body-md": ["Libre Franklin"],
+                        "display-lg": ["Libre Franklin"],
+                        "label-md": ["IBM Plex Sans"]
+                    },
+                    "fontSize": {
+                        "label-sm": ["12px", { "lineHeight": "18px", "fontWeight": "500" }],
+                        "headline-sm": ["20px", { "lineHeight": "28px", "fontWeight": "600" }],
+                        "numeric-countdown": ["18px", { "lineHeight": "24px", "letterSpacing": "0.02em", "fontWeight": "600" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "body-md": ["14px", { "lineHeight": "22px", "fontWeight": "400" }],
+                        "display-lg": ["36px", { "lineHeight": "44px", "fontWeight": "700" }],
+                        "label-md": ["14px", { "lineHeight": "20px", "fontWeight": "500" }]
+                    }
+                },
+            },
+        }
+    </script>
+    <style>
+        body {
+            background-color: theme('colors.surface-container');
+        }
+        .arco-shadow {
+            box-shadow: 0 4px 10px rgba(29, 33, 41, 0.05);
+        }
+        .message-toast {
+            animation: slideDown 0.3s ease-out forwards;
+        }
+        @keyframes slideDown {
+            from { transform: translateY(-100%); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+    </style>
+</head>
+<body class="font-body-md text-text-body antialiased min-h-screen flex flex-col">
+<!-- TopNavBar (Semantic Shell) -->
+<nav class="bg-surface-container-lowest border-b border-border-light shadow-sm fixed top-0 w-full z-50 flex items-center justify-between px-gutter h-16 mx-auto">
+    <div class="flex items-center gap-8 max-w-container-max mx-auto w-full">
+        <div class="flex items-center gap-2">
+            <span class="material-symbols-outlined text-primary font-bold text-[24px]" style="font-variation-settings: 'FILL' 1;">corporate_fare</span>
+            <span class="font-headline-sm text-headline-sm font-bold text-primary">TalentHub 抢课演示</span>
+        </div>
+        <div class="hidden md:flex gap-6">
+            <!-- 课程列表 is active as we are in Course Details which sits under Course List -->
+            <a class="text-primary font-bold border-b-2 border-primary pb-1 hover:text-primary transition-colors duration-200" href="#">
+                <span class="font-label-md text-label-md">课程列表</span>
+            </a>
+            <a class="text-text-body hover:text-primary transition-colors duration-200" href="#">
+                <span class="font-label-md text-label-md">我的报名</span>
+            </a>
+            <a class="text-text-body hover:text-primary transition-colors duration-200" href="#">
+                <span class="font-label-md text-label-md">管理端</span>
+            </a>
+        </div>
+        <div class="ml-auto flex items-center gap-4">
+            <button class="text-text-muted hover:text-primary transition-colors duration-200 flex items-center gap-1">
+                <span class="material-symbols-outlined">swap_horiz</span>
+                <span class="font-label-sm text-label-sm">用户切换</span>
+            </button>
+            <div class="w-8 h-8 rounded-full bg-surface-container-high border border-border-medium overflow-hidden">
+                <img alt="User Avatar" class="w-full h-full object-cover" data-alt="A professional corporate headshot of a young professional in a modern office setting. The lighting is soft and natural, emphasizing a trustworthy and competent demeanor. The background is slightly blurred showing subtle office elements. The aesthetic is clean, modern corporate." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCA-aNV6R4iOBlfafMzGpMXKTFI6DCMvHvCLauven9bjs1xmwVd3iDOFkevd2bgskRCEQB6q-RRKLFBtx3tOohPZ5_ka37KG16USpV_EtHNyWL3xIYrgePj0FBujhHxRUOOVciSrXoPPPO0f62e8Hwk5UjMVPUX-eR9nM_vBPltzOn2bvzNzF5qxZgTsW6N6tawX3k4CtnJsxpQa9PgzoZeRe1cVHZd7T-N2EelmXTRAfRFuO4gmwcZeg"/>
+            </div>
+        </div>
+    </div>
+</nav>
+<!-- Main Content -->
+<main class="flex-grow pt-24 pb-16 px-gutter md:px-0">
+    <div class="max-w-container-max mx-auto">
+        <!-- Breadcrumbs -->
+        <div class="flex items-center gap-2 text-text-muted mb-6">
+            <a class="hover:text-primary transition-colors font-label-md text-label-md" href="#">课程列表</a>
+            <span class="material-symbols-outlined text-[16px]">chevron_right</span>
+            <span class="text-text-heading font-label-md text-label-md">课程详情</span>
+        </div>
+        <!-- Content Grid -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <!-- Left Column: Main Course Info -->
+            <div class="lg:col-span-2 space-y-6">
+                <!-- Header Card -->
+                <div class="bg-surface-container-lowest rounded-xl arco-shadow p-8 border border-border-light relative overflow-hidden">
+                    <div class="flex justify-between items-start mb-6">
+                        <div>
+                            <div class="flex items-center gap-3 mb-3">
+<span class="px-2 py-1 bg-[#FFF7E8] text-status-warning rounded font-label-sm text-label-sm border border-[#FFE4BA] flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">local_fire_department</span>
+                                        报名中
+                                    </span>
+                                <span class="px-2 py-1 bg-surface-container-low text-primary rounded font-label-sm text-label-sm border border-primary-fixed-dim">
+                                        技术类
+                                    </span>
+                            </div>
+                            <h1 class="font-display-lg text-display-lg text-text-heading">AI 原生应用开发：从 Prompt 到 Agent</h1>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mb-8 pt-4 border-t border-border-light">
+                        <div>
+                            <p class="text-text-muted font-label-sm text-label-sm mb-1">培训时间</p>
+                            <p class="font-label-md text-label-md text-text-heading">10-25 14:00 - 18:00</p>
+                        </div>
+                        <div>
+                            <p class="text-text-muted font-label-sm text-label-sm mb-1">培训地点</p>
+                            <p class="font-label-md text-label-md text-text-heading flex items-center gap-1">
+                                <span class="material-symbols-outlined text-[16px]">location_on</span>
+                                北京总部 3F-A 会议室
+                            </p>
+                        </div>
+                        <div>
+                            <p class="text-text-muted font-label-sm text-label-sm mb-1">主讲人</p>
+                            <p class="font-label-md text-label-md text-text-heading">张三 (AI Lab 技术专家)</p>
+                        </div>
+                        <div>
+                            <p class="text-text-muted font-label-sm text-label-sm mb-1">学分奖励</p>
+                            <p class="font-label-md text-label-md text-text-heading text-primary font-bold">2.5 学分</p>
+                        </div>
+                    </div>
+                    <!-- Action Area -->
+                    <div class="flex flex-col md:flex-row items-center justify-between bg-surface-container p-6 rounded-lg border border-border-light">
+                        <div class="flex items-center gap-6 mb-4 md:mb-0 w-full md:w-auto">
+                            <div class="relative w-16 h-16 flex-shrink-0">
+                                <!-- Circular Progress -->
+                                <svg class="w-full h-full transform -rotate-90" viewbox="0 0 36 36">
+                                    <path class="text-border-medium" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" stroke-width="3"></path>
+                                    <path class="text-status-warning" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" stroke-dasharray="96, 100" stroke-linecap="round" stroke-width="3"></path>
+                                </svg>
+                                <div class="absolute inset-0 flex flex-col items-center justify-center">
+                                    <span class="font-numeric-countdown text-numeric-countdown text-status-warning">4%</span>
+                                </div>
+                            </div>
+                            <div>
+                                <p class="font-headline-sm text-headline-sm text-text-heading mb-1">名额紧张，即将爆满！</p>
+                                <p class="font-label-md text-label-md text-text-muted flex items-center gap-2">
+                                    <span class="material-symbols-outlined text-[16px] text-status-warning">warning</span>
+                                    剩余名额 <span class="font-numeric-countdown text-status-warning">2</span> / 总 <span class="font-numeric-countdown">50</span>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-3 w-full md:w-auto">
+                            <button class="p-3 rounded border border-border-medium text-text-muted hover:text-primary hover:border-primary transition-colors flex items-center justify-center">
+                                <span class="material-symbols-outlined">share</span>
+                            </button>
+                            <button class="p-3 rounded border border-border-medium text-text-muted hover:text-status-warning hover:border-status-warning transition-colors flex items-center justify-center">
+                                <span class="material-symbols-outlined">star</span>
+                            </button>
+                            <button class="flex-grow md:flex-grow-0 bg-[#165DFF] hover:bg-primary text-white font-headline-sm text-headline-sm px-10 py-4 rounded shadow-[0_4px_14px_0_rgba(22,93,255,0.39)] transition-all transform hover:-translate-y-0.5 flex items-center justify-center gap-2" onclick="showToast()">
+                                <span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">bolt</span>
+                                立即抢课
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Course Description Modules (Bento style) -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Module: Objective -->
+                    <div class="bg-surface-container-lowest rounded-xl arco-shadow p-6 border border-border-light">
+                        <h3 class="font-headline-sm text-headline-sm text-text-heading mb-4 flex items-center gap-2">
+                            <span class="material-symbols-outlined text-primary">target</span>
+                            课程目标
+                        </h3>
+                        <ul class="space-y-3 font-body-md text-text-body">
+                            <li class="flex items-start gap-2">
+                                <span class="material-symbols-outlined text-status-success text-[20px] mt-0.5">check_circle</span>
+                                理解 LLM 底层运行逻辑与 Prompt 核心设计原则。
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <span class="material-symbols-outlined text-status-success text-[20px] mt-0.5">check_circle</span>
+                                掌握使用 LangChain 等框架开发基础 Agent 的方法。
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <span class="material-symbols-outlined text-status-success text-[20px] mt-0.5">check_circle</span>
+                                能独立完成一个具备外部工具调用能力的业务助手原型。
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- Module: Audience -->
+                    <div class="bg-surface-container-lowest rounded-xl arco-shadow p-6 border border-border-light">
+                        <h3 class="font-headline-sm text-headline-sm text-text-heading mb-4 flex items-center gap-2">
+                            <span class="material-symbols-outlined text-primary">group</span>
+                            目标受众
+                        </h3>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="px-3 py-1 bg-surface-container-low text-text-body rounded-full font-label-sm text-label-sm border border-border-medium">后端开发工程师</span>
+                            <span class="px-3 py-1 bg-surface-container-low text-text-body rounded-full font-label-sm text-label-sm border border-border-medium">产品经理</span>
+                            <span class="px-3 py-1 bg-surface-container-low text-text-body rounded-full font-label-sm text-label-sm border border-border-medium">AI 兴趣爱好者</span>
+                        </div>
+                        <p class="font-body-md text-text-body text-text-muted">
+                            建议具备基础的 Python 编程能力，了解基本的 HTTP API 调用概念。
+                        </p>
+                    </div>
+                    <!-- Module: Syllabus -->
+                    <div class="bg-surface-container-lowest rounded-xl arco-shadow p-6 border border-border-light md:col-span-2">
+                        <h3 class="font-headline-sm text-headline-sm text-text-heading mb-4 flex items-center gap-2">
+                            <span class="material-symbols-outlined text-primary">format_list_bulleted</span>
+                            课程大纲
+                        </h3>
+                        <div class="space-y-4">
+                            <div class="p-4 border border-border-light rounded bg-surface-bright flex gap-4">
+                                <div class="font-headline-sm text-headline-sm text-text-muted">01</div>
+                                <div>
+                                    <h4 class="font-label-md text-label-md text-text-heading font-bold mb-1">Prompt Engineering 进阶指南</h4>
+                                    <p class="font-body-md text-text-muted">Few-shot, Chain of Thought, ReAct 模式实战解析。</p>
+                                </div>
+                            </div>
+                            <div class="p-4 border border-border-light rounded bg-surface-bright flex gap-4">
+                                <div class="font-headline-sm text-headline-sm text-text-muted">02</div>
+                                <div>
+                                    <h4 class="font-label-md text-label-md text-text-heading font-bold mb-1">Agent 架构原理解析</h4>
+                                    <p class="font-body-md text-text-muted">Memory, Planning, Tool Use 核心组件详解与代码演示。</p>
+                                </div>
+                            </div>
+                            <div class="p-4 border border-border-light rounded bg-surface-bright flex gap-4">
+                                <div class="font-headline-sm text-headline-sm text-text-muted">03</div>
+                                <div>
+                                    <h4 class="font-label-md text-label-md text-text-heading font-bold mb-1">实战：构建企业知识库问答助手</h4>
+                                    <p class="font-body-md text-text-muted">结合 RAG 技术，从 0 到 1 部署可用的内部效率工具。</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Right Column: Sidebar -->
+            <div class="space-y-6">
+                <!-- Flow Steps -->
+                <div class="bg-surface-container-lowest rounded-xl arco-shadow p-6 border border-border-light">
+                    <h3 class="font-headline-sm text-headline-sm text-text-heading mb-6">抢课流程</h3>
+                    <div class="relative">
+                        <!-- Vertical line -->
+                        <div class="absolute left-[15px] top-4 bottom-4 w-[2px] bg-border-light"></div>
+                        <div class="space-y-6">
+                            <div class="relative flex gap-4 items-start z-10">
+                                <div class="w-8 h-8 rounded-full bg-surface-container-high border-2 border-primary flex items-center justify-center flex-shrink-0 text-primary font-label-sm text-label-sm font-bold bg-surface-container-lowest">
+                                    <span class="material-symbols-outlined text-[16px]">check</span>
+                                </div>
+                                <div>
+                                    <h4 class="font-label-md text-label-md text-text-heading">01 课程预热</h4>
+                                    <p class="font-label-sm text-label-sm text-text-muted mt-1">2023-10-20 09:00 开始</p>
+                                </div>
+                            </div>
+                            <div class="relative flex gap-4 items-start z-10">
+                                <div class="w-8 h-8 rounded-full bg-primary text-white border-2 border-primary flex items-center justify-center flex-shrink-0 font-label-sm text-label-sm font-bold shadow-[0_0_0_4px_rgba(22,93,255,0.1)]">
+                                    2
+                                </div>
+                                <div>
+                                    <h4 class="font-label-md text-label-md text-primary font-bold">02 开放报名</h4>
+                                    <p class="font-label-sm text-label-sm text-status-warning mt-1">进行中，仅剩 2 个名额</p>
+                                </div>
+                            </div>
+                            <div class="relative flex gap-4 items-start z-10">
+                                <div class="w-8 h-8 rounded-full bg-surface-container-low border-2 border-border-medium flex items-center justify-center flex-shrink-0 text-text-muted font-label-sm text-label-sm font-bold">
+                                    3
+                                </div>
+                                <div>
+                                    <h4 class="font-label-md text-label-md text-text-muted">03 现场授课</h4>
+                                    <p class="font-label-sm text-label-sm text-text-muted mt-1">请于 10-25 13:50 前签到</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Instructor Info -->
+                <div class="bg-surface-container-lowest rounded-xl arco-shadow p-6 border border-border-light">
+                    <h3 class="font-headline-sm text-headline-sm text-text-heading mb-4">讲师简介</h3>
+                    <div class="flex items-center gap-4 mb-4">
+                        <div class="w-16 h-16 rounded-full overflow-hidden border border-border-light bg-surface-container-high">
+                            <img alt="Instructor Profile" class="w-full h-full object-cover" data-alt="A professional headshot portrait of a senior AI software engineer in a modern tech office. They look confident and approachable, wearing smart-casual attire. The background is a slightly blurred office setting with cool, technical lighting, embodying a modern corporate aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuATsvfnFP9Qty03mFojS0g9EJI037TIBQRt0lZckbcb-4kVKuldY_8U7yKBVggp815M41hWCLiDFdI0b-TPv5_XNRb4drxgy_2m33evtWwTsebnPKZrc7AV5h0Sy55fzDLwwfk6-codCdFiO3GMV64IeyGsUsKbq1Ni6SrR8G5JFnL46uVezQZDnwx-We-xuixYD5PKQJI8svxfSaOvPncEGf82Bre3atbGHSqMHsuSdL9MSSDyT7NNaw"/>
+                        </div>
+                        <div>
+                            <h4 class="font-label-md text-label-md text-text-heading font-bold">张三</h4>
+                            <p class="font-label-sm text-label-sm text-text-muted">AI Lab 高级技术专家</p>
+                        </div>
+                    </div>
+                    <p class="font-body-md text-text-body text-sm text-text-muted">
+                        拥有 8 年 AI 领域研发经验，曾主导开发公司内部核心大模型底座平台。多次在公司内部进行技术分享，授课风格深入浅出，实战性强。
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+<!-- Footer -->
+<footer class="w-full py-8 px-gutter flex flex-col md:flex-row justify-between items-center max-w-container-max mx-auto bg-surface-container-low border-t border-border-light mt-auto">
+    <div class="font-headline-sm text-headline-sm text-text-heading mb-4 md:mb-0">
+        TalentHub
+    </div>
+    <div class="text-text-muted font-body-md text-body-md text-center md:text-left mb-4 md:mb-0">
+        © 2024 TalentHub Enterprise Training. All Rights Reserved.
+    </div>
+    <div class="flex gap-4">
+        <a class="text-text-muted hover:text-primary transition-colors font-label-sm text-label-sm" href="#">隐私政策</a>
+        <a class="text-text-muted hover:text-primary transition-colors font-label-sm text-label-sm" href="#">使用条款</a>
+        <a class="text-text-muted hover:text-primary transition-colors font-label-sm text-label-sm" href="#">联系支持</a>
+    </div>
+</footer>
+<!-- Arco Message Toast Container -->
+<div class="fixed top-20 left-1/2 transform -translate-x-1/2 z-[60] flex flex-col gap-2 pointer-events-none" id="toast-container">
+    <!-- Toast will be injected here via JS -->
+</div>
+<script>
+    function showToast() {
+        const container = document.getElementById('toast-container');
+        const toast = document.createElement('div');
+        toast.className = 'message-toast flex items-center gap-2 px-4 py-2 bg-surface-container-lowest border border-border-light shadow-md rounded pointer-events-auto';
+
+        // Warning style based on prompt request: 名额已满
+        toast.innerHTML = `
+                <span class="material-symbols-outlined text-status-error text-[20px]" style="font-variation-settings: 'FILL' 1;">error</span>
+                <span class="font-label-md text-label-md text-text-heading">名额已满，抢课失败</span>
+            `;
+
+        container.appendChild(toast);
+
+        // Remove after 3 seconds as per design rules
+        setTimeout(() => {
+            toast.style.opacity = '0';
+            toast.style.transform = 'translateY(-20px)';
+            toast.style.transition = 'all 0.3s ease-in';
+            setTimeout(() => toast.remove(), 300);
+        }, 3000);
+    }
+</script>
+</body></html>

@@ -5,6 +5,7 @@ talenthub-server/target/
 # Node / Vite
 talenthub-web/node_modules/
 talenthub-web/dist/
+talenthub-web/package-lock.json
 
 # IDE
 .idea/

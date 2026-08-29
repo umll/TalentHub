@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN"><head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>我的报名 - TalentHub 抢课演示</title>
+    <!-- Material Symbols -->
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <!-- Tailwind Config from Brand Anchors -->
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-error-container": "#93000a",
+                        "on-surface": "#131c26",
+                        "on-tertiary-fixed": "#311300",
+                        "secondary-container": "#6bfd6a",
+                        "primary-container": "#165dff",
+                        "surface-variant": "#d9e3f1",
+                        "on-tertiary-container": "#ffece2",
+                        "surface-tint": "#004fe5",
+                        "status-warning": "#FF7D00",
+                        "on-secondary-fixed-variant": "#00530e",
+                        "text-heading": "#1D2129",
+                        "on-primary-fixed": "#00164f",
+                        "error-container": "#ffdad6",
+                        "bg-subtle": "#F2F3F5",
+                        "on-background": "#131c26",
+                        "secondary": "#006e16",
+                        "secondary-fixed": "#72ff70",
+                        "on-primary-fixed-variant": "#003bb0",
+                        "tertiary-fixed": "#ffdbc8",
+                        "background": "#f7f9ff",
+                        "on-secondary-container": "#007317",
+                        "on-secondary-fixed": "#002203",
+                        "outline": "#737688",
+                        "secondary-fixed-dim": "#4ee253",
+                        "surface-container-low": "#edf4ff",
+                        "text-muted": "#86909C",
+                        "status-success": "#00B42A",
+                        "primary": "#0047cf",
+                        "error": "#ba1a1a",
+                        "primary-fixed-dim": "#b6c4ff",
+                        "on-tertiary": "#ffffff",
+                        "on-tertiary-fixed-variant": "#733500",
+                        "surface": "#f7f9ff",
+                        "outline-variant": "#c3c5d9",
+                        "on-surface-variant": "#434656",
+                        "surface-container": "#e5effc",
+                        "primary-fixed": "#dce1ff",
+                        "inverse-surface": "#28313b",
+                        "inverse-on-surface": "#e8f2ff",
+                        "on-secondary": "#ffffff",
+                        "tertiary-fixed-dim": "#ffb689",
+                        "status-error": "#F53F3F",
+                        "surface-dim": "#d1dbe8",
+                        "on-error": "#ffffff",
+                        "tertiary-container": "#ae5300",
+                        "tertiary": "#894000",
+                        "surface-container-highest": "#d9e3f1",
+                        "surface-bright": "#f7f9ff",
+                        "surface-container-lowest": "#ffffff",
+                        "inverse-primary": "#b6c4ff",
+                        "status-inactive": "#86909C",
+                        "on-primary": "#ffffff",
+                        "text-body": "#4E5969",
+                        "on-primary-container": "#eeefff",
+                        "border-medium": "#C9CDD1",
+                        "border-light": "#F2F3F5",
+                        "surface-container-high": "#dfe9f6"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "gutter": "24px",
+                        "container-max": "1200px",
+                        "base": "8px",
+                        "section-gap": "32px",
+                        "margin-mobile": "16px",
+                        "card-padding": "20px"
+                    },
+                    "fontFamily": {
+                        "label-sm": [
+                            "IBM Plex Sans"
+                        ],
+                        "headline-sm": [
+                            "Libre Franklin"
+                        ],
+                        "numeric-countdown": [
+                            "IBM Plex Sans"
+                        ],
+                        "headline-md": [
+                            "Libre Franklin"
+                        ],
+                        "body-lg": [
+                            "Libre Franklin"
+                        ],
+                        "body-md": [
+                            "Libre Franklin"
+                        ],
+                        "display-lg": [
+                            "Libre Franklin"
+                        ],
+                        "label-md": [
+                            "IBM Plex Sans"
+                        ]
+                    },
+                    "fontSize": {
+                        "label-sm": [
+                            "12px",
+                            {
+                                "lineHeight": "18px",
+                                "fontWeight": "500"
+                            }
+                        ],
+                        "headline-sm": [
+                            "20px",
+                            {
+                                "lineHeight": "28px",
+                                "fontWeight": "600"
+                            }
+                        ],
+                        "numeric-countdown": [
+                            "18px",
+                            {
+                                "lineHeight": "24px",
+                                "letterSpacing": "0.02em",
+                                "fontWeight": "600"
+                            }
+                        ],
+                        "headline-md": [
+                            "24px",
+                            {
+                                "lineHeight": "32px",
+                                "fontWeight": "600"
+                            }
+                        ],
+                        "body-lg": [
+                            "16px",
+                            {
+                                "lineHeight": "24px",
+                                "fontWeight": "400"
+                            }
+                        ],
+                        "body-md": [
+                            "14px",
+                            {
+                                "lineHeight": "22px",
+                                "fontWeight": "400"
+                            }
+                        ],
+                        "display-lg": [
+                            "36px",
+                            {
+                                "lineHeight": "44px",
+                                "fontWeight": "700"
+                            }
+                        ],
+                        "label-md": [
+                            "14px",
+                            {
+                                "lineHeight": "20px",
+                                "fontWeight": "500"
+                            }
+                        ]
+                    }
+                },
+            },
+        }
+    </script>
+    <style>
+        body {
+            background-color: theme('colors.bg-subtle'); /* --color-fill-2 equivalent */
+            min-height: 100vh;
+        }
+        .arco-shadow {
+            box-shadow: 0 4px 10px rgba(29, 33, 41, 0.05);
+        }
+        .arco-table-header {
+            background-color: theme('colors.bg-subtle');
+        }
+    </style>
+</head>
+<body class="font-body-md text-text-body antialiased">
+<!-- TopNavBar (Shared Component) -->
+<header class="bg-surface-container-lowest border-b border-border-light shadow-sm fixed top-0 w-full z-50 flex items-center justify-between px-gutter h-16 max-w-container-max mx-auto left-0 right-0">
+    <div class="flex items-center gap-8">
+        <!-- Brand Logo -->
+        <div class="text-headline-sm font-headline-sm font-bold text-primary">
+            TalentHub 抢课演示
+        </div>
+        <!-- Navigation Links -->
+        <nav class="hidden md:flex items-center gap-6 h-full">
+            <a class="text-text-body font-label-md text-label-md hover:text-primary transition-colors duration-200 py-5" href="#">课程列表</a>
+            <a class="text-primary font-label-md text-label-md font-bold border-b-2 border-primary pb-[18px] pt-[20px] transition-colors duration-200" href="#">我的报名</a>
+            <a class="text-text-body font-label-md text-label-md hover:text-primary transition-colors duration-200 py-5" href="#">管理端</a>
+        </nav>
+    </div>
+    <!-- Trailing Actions -->
+    <div class="flex items-center gap-4">
+        <button class="text-text-body hover:text-primary transition-colors duration-200 font-label-md text-label-md hidden md:block">
+            用户切换
+        </button>
+        <div class="w-8 h-8 rounded-full bg-surface-container-high overflow-hidden border border-border-light flex items-center justify-center">
+            <span class="material-symbols-outlined text-text-muted" data-icon="person">person</span>
+        </div>
+    </div>
+</header>
+<!-- Main Content Area -->
+<main class="pt-24 pb-12 px-gutter max-w-container-max mx-auto space-y-section-gap">
+    <!-- Header Section -->
+    <div class="flex flex-col gap-base">
+        <h1 class="font-headline-md text-headline-md text-text-heading">我的报名</h1>
+        <p class="font-body-md text-text-muted">管理您的个人培训课程报名记录。</p>
+    </div>
+    <!-- Statistics Cards (Bento Grid Style) -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <!-- Total Enrolled -->
+        <div class="bg-surface-container-lowest rounded-lg arco-shadow p-card-padding flex items-center gap-4 transition-transform hover:-translate-y-1 duration-300">
+            <div class="w-12 h-12 rounded-full bg-primary-fixed flex items-center justify-center shrink-0">
+                <span class="material-symbols-outlined text-primary" data-icon="collections_bookmark">collections_bookmark</span>
+            </div>
+            <div>
+                <div class="font-label-sm text-text-muted mb-1">累计报名课程</div>
+                <div class="font-headline-md text-headline-md text-text-heading font-bold">12</div>
+            </div>
+        </div>
+        <!-- Attended -->
+        <div class="bg-surface-container-lowest rounded-lg arco-shadow p-card-padding flex items-center gap-4 transition-transform hover:-translate-y-1 duration-300">
+            <div class="w-12 h-12 rounded-full bg-[#E8FFEA] flex items-center justify-center shrink-0">
+                <span class="material-symbols-outlined text-status-success" data-icon="check_circle">check_circle</span>
+            </div>
+            <div>
+                <div class="font-label-sm text-text-muted mb-1">已参加</div>
+                <div class="font-headline-md text-headline-md text-text-heading font-bold">8</div>
+            </div>
+        </div>
+        <!-- Cancelled -->
+        <div class="bg-surface-container-lowest rounded-lg arco-shadow p-card-padding flex items-center gap-4 transition-transform hover:-translate-y-1 duration-300">
+            <div class="w-12 h-12 rounded-full bg-surface-container-high flex items-center justify-center shrink-0">
+                <span class="material-symbols-outlined text-text-muted" data-icon="cancel">cancel</span>
+            </div>
+            <div>
+                <div class="font-label-sm text-text-muted mb-1">已取消</div>
+                <div class="font-headline-md text-headline-md text-text-heading font-bold">4</div>
+            </div>
+        </div>
+    </div>
+    <!-- Enrollment Records Table Container -->
+    <div class="bg-surface-container-lowest rounded-lg arco-shadow overflow-hidden">
+        <!-- Toolbar (Optional, for future filters) -->
+        <div class="p-card-padding border-b border-border-light flex justify-between items-center bg-surface-container-lowest">
+            <h2 class="font-headline-sm text-headline-sm text-text-heading">报名记录</h2>
+            <div class="flex gap-2">
+                <button class="w-8 h-8 rounded bg-bg-subtle flex items-center justify-center hover:bg-surface-variant transition-colors text-text-body">
+                    <span class="material-symbols-outlined text-sm" data-icon="filter_list">filter_list</span>
+                </button>
+            </div>
+        </div>
+        <!-- Arco Table -->
+        <div class="overflow-x-auto">
+            <table class="w-full text-left border-collapse min-w-[800px]">
+                <thead>
+                <tr>
+                    <th class="arco-table-header px-4 py-3 font-label-md text-text-heading border-b border-border-light w-1/3">课程名</th>
+                    <th class="arco-table-header px-4 py-3 font-label-md text-text-heading border-b border-border-light w-1/6">报名状态</th>
+                    <th class="arco-table-header px-4 py-3 font-label-md text-text-heading border-b border-border-light w-1/5">报名时间</th>
+                    <th class="arco-table-header px-4 py-3 font-label-md text-text-heading border-b border-border-light w-1/5">取消时间</th>
+                    <th class="arco-table-header px-4 py-3 font-label-md text-text-heading border-b border-border-light w-1/6 text-right">操作</th>
+                </tr>
+                </thead>
+                <tbody class="font-body-md text-text-body">
+                <!-- Record 1 (Enrolled, Cancellable) -->
+                <tr class="hover:bg-bg-subtle transition-colors group">
+                    <td class="px-4 py-4 border-b border-border-light">
+                        <div class="font-label-md text-text-heading">2024年Q1企业文化深度宣导</div>
+                        <div class="font-label-sm text-text-muted mt-1 flex items-center gap-1">
+                            <span class="material-symbols-outlined text-[14px]" data-icon="location_on">location_on</span>
+                            北京总部 A座 302会议室
+                        </div>
+                    </td>
+                    <td class="px-4 py-4 border-b border-border-light">
+                        <div class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-sm bg-[#E8FFEA] text-status-success font-label-sm">
+                            <span class="w-1.5 h-1.5 rounded-full bg-status-success"></span>
+                            已报名
+                        </div>
+                    </td>
+                    <td class="px-4 py-4 border-b border-border-light text-text-muted">
+                        2024-03-15 09:00:12
+                    </td>
+                    <td class="px-4 py-4 border-b border-border-light text-text-muted">
+                        -
+                    </td>
+                    <td class="px-4 py-4 border-b border-border-light text-right">
+                        <button class="text-primary hover:text-surface-tint font-label-md transition-colors" onclick="alert('取消报名确认提示')">取消报名</button>
+                    </td>
+                </tr>
+                <!-- Record 2 (Enrolled, Not Cancellable - Past Deadline) -->
+                <tr class="hover:bg-bg-subtle transition-colors group">
+                    <td class="px-4 py-4 border-b border-border-light">
+                        <div class="font-label-md text-text-heading">高级项目管理实战沙盘</div>
+                        <div class="font-label-sm text-text-muted mt-1 flex items-center gap-1">
+                            <span class="material-symbols-outlined text-[14px]" data-icon="videocam">videocam</span>
+                            线上直播 (腾讯会议)
+                        </div>
+                    </td>
+                    <td class="px-4 py-4 border-b border-border-light">
+                        <div class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-sm bg-[#E8FFEA] text-status-success font-label-sm">
+                            <span class="w-1.5 h-1.5 rounded-full bg-status-success"></span>
+                            已报名
+                        </div>
+                    </td>
+                    <td class="px-4 py-4 border-b border-border-light text-text-muted">
+                        2024-03-10 14:30:00
+                    </td>
+                    <td class="px-4 py-4 border-b border-border-light text-text-muted">
+                        -
+                    </td>
+                    <td class="px-4 py-4 border-b border-border-light text-right">
+                        <!-- No cancel link if past deadline, optionally show disabled -->
+                        <span class="text-status-inactive font-label-md cursor-not-allowed" title="报名已截止，无法取消">取消报名</span>
+                    </td>
+                </tr>
+                <!-- Record 3 (Cancelled) -->
+                <tr class="hover:bg-bg-subtle transition-colors group">
+                    <td class="px-4 py-4 border-b border-border-light">
+                        <div class="font-label-md text-text-heading">AI工具在日常办公中的应用</div>
+                        <div class="font-label-sm text-text-muted mt-1 flex items-center gap-1">
+                            <span class="material-symbols-outlined text-[14px]" data-icon="location_on">location_on</span>
+                            上海分公司 B座 培训室
+                        </div>
+                    </td>
+                    <td class="px-4 py-4 border-b border-border-light">
+                        <div class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-sm bg-bg-subtle text-text-muted font-label-sm">
+                            <span class="w-1.5 h-1.5 rounded-full bg-status-inactive"></span>
+                            已取消
+                        </div>
+                    </td>
+                    <td class="px-4 py-4 border-b border-border-light text-text-muted">
+                        2024-03-01 10:00:00
+                    </td>
+                    <td class="px-4 py-4 border-b border-border-light text-text-muted">
+                        2024-03-02 11:15:22
+                    </td>
+                    <td class="px-4 py-4 border-b border-border-light text-right">
+                        -
+                    </td>
+                </tr>
+                <!-- Record 4 (Attended/Completed - Implicitly Enrolled but past) -->
+                <tr class="hover:bg-bg-subtle transition-colors group">
+                    <td class="px-4 py-4 border-b border-border-light">
+                        <div class="font-label-md text-text-heading">新员工入职破冰集训</div>
+                        <div class="font-label-sm text-text-muted mt-1 flex items-center gap-1">
+                            <span class="material-symbols-outlined text-[14px]" data-icon="location_on">location_on</span>
+                            北京总部 A座 大报告厅
+                        </div>
+                    </td>
+                    <td class="px-4 py-4 border-b border-border-light">
+                        <div class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-sm bg-[#E8FFEA] text-status-success font-label-sm">
+                            <span class="w-1.5 h-1.5 rounded-full bg-status-success"></span>
+                            已参加
+                        </div>
+                    </td>
+                    <td class="px-4 py-4 border-b border-border-light text-text-muted">
+                        2024-01-15 08:00:00
+                    </td>
+                    <td class="px-4 py-4 border-b border-border-light text-text-muted">
+                        -
+                    </td>
+                    <td class="px-4 py-4 border-b border-border-light text-right">
+                        -
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <!-- Pagination (Arco style, right aligned) -->
+        <div class="p-card-padding border-t border-border-light flex justify-end items-center bg-surface-container-lowest">
+            <div class="flex items-center gap-2 font-body-md text-text-body">
+                <span class="text-text-muted mr-4">共 12 条记录</span>
+                <button class="w-8 h-8 rounded border border-border-light flex items-center justify-center hover:border-primary hover:text-primary transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
+                    <span class="material-symbols-outlined text-sm" data-icon="chevron_left">chevron_left</span>
+                </button>
+                <button class="w-8 h-8 rounded bg-primary text-on-primary flex items-center justify-center font-label-md">1</button>
+                <button class="w-8 h-8 rounded border border-transparent hover:bg-bg-subtle flex items-center justify-center font-label-md transition-colors">2</button>
+                <button class="w-8 h-8 rounded border border-transparent hover:bg-bg-subtle flex items-center justify-center font-label-md transition-colors">3</button>
+                <button class="w-8 h-8 rounded border border-border-light flex items-center justify-center hover:border-primary hover:text-primary transition-colors">
+                    <span class="material-symbols-outlined text-sm" data-icon="chevron_right">chevron_right</span>
+                </button>
+                <select class="ml-4 h-8 rounded border-border-light text-text-body font-body-md py-1 pl-2 pr-8 focus:border-primary focus:ring-1 focus:ring-primary outline-none">
+                    <option>10 条/页</option>
+                    <option>20 条/页</option>
+                    <option>50 条/页</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <!-- Empty State Demonstration (Normally hidden if data exists, shown here for requirements) -->
+    <div class="mt-section-gap bg-surface-container-lowest rounded-lg arco-shadow p-12 flex flex-col items-center justify-center border border-dashed border-border-medium hidden">
+        <!-- Placeholder for Empty State Illustration -->
+        <div class="w-48 h-48 mb-6 rounded-full bg-surface-container flex items-center justify-center">
+            <span class="material-symbols-outlined text-[64px] text-outline-variant" data-icon="inbox">inbox</span>
+        </div>
+        <h3 class="font-headline-sm text-headline-sm text-text-heading mb-2">暂无报名记录</h3>
+        <p class="font-body-md text-text-muted mb-6 text-center max-w-md">您还没有报名任何培训课程，赶快去课程列表看看有没有感兴趣的课程吧。</p>
+        <button class="bg-primary hover:bg-surface-tint text-on-primary font-label-md px-6 py-2 rounded transition-colors shadow-sm">
+            去抢课
+        </button>
+    </div>
+</main>
+<!-- Footer (Shared Component) -->
+<footer class="w-full py-8 px-gutter flex flex-col md:flex-row justify-between items-center max-w-container-max mx-auto border-t border-border-light bg-surface-container-lowest mt-auto">
+    <div class="font-headline-sm text-headline-sm text-text-heading mb-4 md:mb-0">
+        TalentHub
+    </div>
+    <div class="flex gap-6 mb-4 md:mb-0">
+        <a class="font-label-sm text-label-sm text-text-muted hover:text-primary transition-colors" href="#">隐私政策</a>
+        <a class="font-label-sm text-label-sm text-text-muted hover:text-primary transition-colors" href="#">使用条款</a>
+        <a class="font-label-sm text-label-sm text-text-muted hover:text-primary transition-colors" href="#">联系支持</a>
+    </div>
+    <div class="font-body-md text-body-md text-text-muted">
+        © 2024 TalentHub Enterprise Training. All Rights Reserved.
+    </div>
+</footer>
+</body></html>
